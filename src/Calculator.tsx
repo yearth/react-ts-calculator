@@ -88,6 +88,7 @@ export default function Calculator() {
   const calculate = (_equation: string | undefined): void => {
     if (utils.isValid()) {
       const resultStr = _equation ? utils.replaceExpression(_equation) : utils.replaceExpression(equation)
+      // eslint-disable-next-line
       const result = parseFloat(eval(resultStr).toFixed(9)).toString()
       if (result === 'Infinity') {
         clear()
