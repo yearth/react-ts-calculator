@@ -3,7 +3,7 @@ import './index.css'
 
 export default function Calculator() {
   // result
-  const [equation, setEquation] = useState('0')
+  const [equation, setEquation] = useState<string>('0')
   // 判断是否已经输入了小数，防止连续输入小数点
   const [isDecmialAdded, setIsDecmialAdded] = useState(false)
   // 判断是否已经输入了运算符，防止连续输入运算符
@@ -11,8 +11,15 @@ export default function Calculator() {
   // 判断是否已经输入了数字，用于正负运算和百分比运算
   const [isStarted, setIsStarted] = useState(false)
 
+  interface Utils {
+    isOperator(char: string): boolean
+    isDecmial(char: string): boolean
+    isNumber(char: string): boolean
+    isValid(): boolean
+    replaceExpression(str: string): string
+  }
   // ? 内部用到的工具集
-  const utils = {
+  const utils: Utils = {
     // 判断 char 是否是运算符
     isOperator(char: string) {
       // 这里是乘号不是字母x，对应编码U+00D7
@@ -78,7 +85,7 @@ export default function Calculator() {
     }
   }
   // ? 点击等号
-  const calculate = (_equation: string | undefined) => {
+  const calculate = (_equation: string | undefined): void => {
     if (utils.isValid()) {
       const resultStr = _equation ? utils.replaceExpression(_equation) : utils.replaceExpression(equation)
       const result = parseFloat(eval(resultStr).toFixed(9)).toString()
@@ -90,7 +97,7 @@ export default function Calculator() {
     }
   }
   // ? 点击正负号
-  const calculateToggle = () => {
+  const calculateToggle = (): void => {
     if (isOperatorAdded || !isStarted) {
       return
     }
@@ -98,7 +105,7 @@ export default function Calculator() {
     calculate(_equation)
   }
   // ? 点击百分号
-  const calculatePercentage = () => {
+  const calculatePercentage = (): void => {
     if (isOperatorAdded || !isStarted) {
       return
     }
@@ -106,7 +113,7 @@ export default function Calculator() {
     calculate(_equation)
   }
   // ? 点击 AC
-  const clear = () => {
+  const clear = (): void => {
     setEquation('0')
     setIsDecmialAdded(false)
     setIsOperatorAdded(false)
