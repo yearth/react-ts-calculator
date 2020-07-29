@@ -1,7 +1,5 @@
 {
-  "parser": "esprima",
   "rules": {
-    "semi": "error",
     "no-eval": "off"
   }
 }
